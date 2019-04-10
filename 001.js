@@ -10,6 +10,16 @@ const state = {
             state.cb.forEach(el => el(state.bgColor))
         }
     },
+    showColorCode: ()=>{
+        if(!document.getElementById('my-div')) {
+            const myDiv = document.createElement('div');
+            myDiv.id = 'my-div';
+            document.body.appendChild(myDiv)
+        }
+        if(state.bgColor){
+            document.getElementById('my-div').innerText = state.bgColor
+        }
+    },
     cb:[],
     onBgColorChanged: (cb) => {
         state.cb.push(cb);
@@ -17,3 +27,4 @@ const state = {
 };
 document.getElementById("bg-color-form").onsubmit = state.formHandler;
 document.getElementById("change-background-button").onclick = state.changeBgColor;
+document.getElementById("show-color-code").onclick = state.showColorCode;
