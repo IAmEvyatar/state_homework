@@ -6,10 +6,13 @@ const state = {
     },
     changeBgColor: ()=>{
         document.body.style.backgroundColor = state.bgColor;
+        if(state.cb.length > 0 && state.bgColor){
+            state.cb.forEach(el => el(state.bgColor))
+        }
     },
     cb:[],
     onBgColorChanged: (cb) => {
-        this.cb.push(cb);
+        state.cb.push(cb);
     }
 };
 document.getElementById("bg-color-form").onsubmit = state.formHandler;
