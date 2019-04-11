@@ -1,7 +1,7 @@
 const state = {
     formHandler: (e)=>{
         state.bgColor = e.currentTarget.colorInput.value;
-        state.cb.forEach(function(el){el()})
+        state.cb.forEach(el => el())
         e.preventDefault()
         return false;
     },
