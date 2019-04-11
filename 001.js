@@ -1,14 +1,12 @@
 const state = {
     formHandler: (e)=>{
         state.bgColor = e.currentTarget.colorInput.value;
+        state.cb.forEach(function(el){el()})
         e.preventDefault()
         return false;
     },
     changeBgColor: ()=>{
         document.body.style.backgroundColor = state.bgColor;
-        if(state.cb.length > 0 && state.bgColor){
-            state.cb.forEach(el => el(state.bgColor))
-        }
     },
     showColorCode: ()=>{
         if(!document.getElementById('my-div')) {
@@ -16,15 +14,13 @@ const state = {
             myDiv.id = 'my-div';
             document.body.appendChild(myDiv)
         }
-        if(state.bgColor){
-            document.getElementById('my-div').innerText = state.bgColor
-        }
+        document.getElementById('my-div').innerText = state.bgColor
     },
     cb:[],
-    onBgColorChanged: (cb) => {
+    onColorChange: (cb) => {
         state.cb.push(cb);
     }
 };
+state.onColorChange(state.changeBgColor)
+state.onColorChange(state.showColorCode)
 document.getElementById("bg-color-form").onsubmit = state.formHandler;
-document.getElementById("change-background-button").onclick = state.changeBgColor;
-document.getElementById("show-color-code").onclick = state.showColorCode;
